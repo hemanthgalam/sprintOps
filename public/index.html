@@ -498,11 +498,13 @@
     </style>
     <!-- Mermaid.js script for live sequence & architecture diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- Sample-data backend for static hosting (GitHub Pages); inactive when served by the Node server -->
+    <script src="demo-api.js"></script>
 </head>
 <body>
 
     <!-- Floating AI Copilot Popup Drawer & Voice FAB Trigger -->
-    <iframe src="/agent.html" class="agent-iframe" id="agentCopilotDrawer" title="SprintOps Agent Drawer"></iframe>
+    <iframe src="agent.html" class="agent-iframe" id="agentCopilotDrawer" title="SprintOps Agent Drawer"></iframe>
     <button id="copilotFab" class="copilot-fab" title="Open AI Copilot Voice & Chat">
         🎙️
     </button>
@@ -1076,9 +1078,10 @@
     <!-- Notification Toast -->
     <div id="notification" class="notification"></div>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="socket.io/socket.io.js"></script>
     <script>
-        const socket = io();
+        // Static hosting (GitHub Pages) has no Socket.IO server; fall back to a no-op socket
+        const socket = typeof io === 'function' ? io() : { on() {}, emit() {} };
 
         // Elements
         const taskForm = document.getElementById('taskForm');

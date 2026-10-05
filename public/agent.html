@@ -202,6 +202,8 @@
             max-width: 300px;
         }
     </style>
+    <!-- Sample-data backend for static hosting (GitHub Pages); inactive when served by the Node server -->
+    <script src="demo-api.js"></script>
 </head>
 <body>
 
@@ -241,9 +243,10 @@
         <button type="submit">Submit</button>
     </form>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="socket.io/socket.io.js"></script>
     <script>
-        const socket = io();
+        // Static hosting (GitHub Pages) has no Socket.IO server; fall back to a no-op socket
+        const socket = typeof io === 'function' ? io() : { on() {}, emit() {} };
         const orb = document.getElementById('orb');
         const transcript = document.getElementById('transcript');
         const helperText = document.getElementById('helper-text');
